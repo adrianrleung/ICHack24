@@ -1,0 +1,16 @@
+{
+    "Chapter 2":{
+
+    },
+    "chapter 3":
+    {
+        "levels" : 
+        [
+            "U got a scam call, are u going to pick it up? [y/N]",
+            "U got a scam email, are u going to pick it up? [y/N]",
+            "Someone is asking for your personal information, are u going to give it to them? [y/N]"
+        ],
+        "good_ending" : "you passed the training, congratulations!",
+        "bad_ending"  :"u failed at the level ${n}, please try again"
+    }
+}
