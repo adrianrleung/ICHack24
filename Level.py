@@ -10,20 +10,23 @@ import Tree
 class Level:
     def __init__(self, data):
         self.data = data
+        self.choices = data[choices]
+        self.correct = data[correct]
+        self.description = data[description]
 
     
     def launchLevel(self):
-        for line in data[description]:
+        for line in self.description:
             print("System " + text)
-        for choice in data[choices]:
-            userChoice = input(choice)
-            while userChoice.upper() not in ["Y","N"]:
-                userChoice = input("invalid input, try again")
-            if userChoice != data[correct]:
-                self.fail()
-            else:
-                self.corrects.pop(0)
-        self.right()
+        for choice in self.choices:
+            print(choice)
+        userChoice = input("enter your choice")
+        while userChoice < len(self.choices):
+            userChoice = input("invalid. Try again")
+        if userChoice == self.correct:
+            self.right()
+        else:
+            self.fail()
     
     def fail(self):
         pass
