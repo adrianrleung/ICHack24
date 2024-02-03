@@ -1,5 +1,4 @@
 from Chapter import Chapter
-from Tree import Tree
 # Main menu (tree of connected chapter)
 # Variables
 #   Hearts variable for lives remaining
@@ -9,9 +8,7 @@ from Tree import Tree
 class MainMenu:
     def __init__(self, lives):
         self.lives = lives
-        self.root = Chapter("chapter_1.json")
-        self.unlocked = [self.root]
-        self.tree = Tree(self.root, self.unlocked)
+        self.unlocked = [Chapter.initChapter()]
 
         
 

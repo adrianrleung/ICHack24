@@ -2,6 +2,7 @@ import json
 
 from Level import Level
 
+CHAPTER_1 = "chapter_1.json"
 LEVELS = "levels"
 DEPENDENCIES = "dependencies"
 
@@ -23,6 +24,10 @@ class Chapter:
 
     def reset(self):
         self.index = 0
+
+    @staticmethod
+    def initChapter():
+        return Chapter(CHAPTER_1)
 
     def importJSON(self, filename):
         with open(filename) as f:
