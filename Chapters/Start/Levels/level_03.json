@@ -7,5 +7,5 @@
         "You ask the caller for their login credentials first",
         "You give them partial information to test their legitimacy"
     ],
-    "correct": 2
+    "correct": 1
 }
