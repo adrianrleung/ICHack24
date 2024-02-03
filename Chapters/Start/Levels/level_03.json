@@ -1,0 +1,11 @@
+{
+    "description": "A person claiming to be from IT support calls you and asks for your login credentials. What should you do?",
+    "name": "Social Engineering",
+    "choices": [
+        "You provide your login credentials over the phone",
+        "You hang up and call the IT department to verify the call",
+        "You ask the caller for their login credentials first",
+        "You give them partial information to test their legitimacy"
+    ],
+    "correct": 2
+}

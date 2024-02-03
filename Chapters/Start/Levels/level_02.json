@@ -1,0 +1,11 @@
+{
+    "description": "You notice that your password is too simple and might be easy to guess. What do you do?",
+    "name": "Password Security",
+    "choices": [
+        "You keep the same password since it's easy for you to remember",
+        "You change your password to a more complex one",
+        "You share your password with a colleague",
+        "You write your password on a sticky note on your desk"
+    ],
+    "correct": 2
+}
