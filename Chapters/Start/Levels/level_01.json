@@ -1,0 +1,11 @@
+{
+    "description": "This is a example description: You recieve a phishing email what do you do",
+    "name": "Phishing Email",
+    "choices": [
+        "You report the email to the IT administrator",
+        "You click on the link in the email",
+        "You ignore the email",
+        "You forward the email to your friends"
+    ],
+    "correct": 0
+}
