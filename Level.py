@@ -17,11 +17,12 @@ class Level:
     
     def launchLevel(self):
         for line in self.description:
-            print("System: " + text)
+            print("System: " + line)
+        print("Your options:")
         for choice in self.choices:
             print(choice)
         userChoice = input("enter your choice")
-        while userChoice < len(self.choices):
+        while userChoice > len(self.choices) or userChoice < 0:
             userChoice = input("invalid. Try again")
         if userChoice == self.correct:
             return (True, lives)
