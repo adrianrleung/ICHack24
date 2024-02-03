@@ -1,16 +1,12 @@
 {
-    "level_1" : {
-        "text": "U got a scam call, are u going to pick it up? [y/N]",
-        "answer": "N"
-    },
-    "level_2" : {
-        "text": "U got a scam email, are u going to pick it up? [y/N]",
-        "answer": "N"
-    },
-    "level_3" : {
-        "text": "Someone is asking for your personal information, are u going to give it to them? [y/N]",
-        "answer": "N"
-    },
-    "good_ending" : "you passed the training, congratulations!",
-    "bad_ending"  :"u failed at the level ${n}, please try again"
+    "levels" : 
+    [
+        "level_04.json",
+        "level_05.json",
+        "level_06.json"
+    ],
+    "dependencies": 
+    [
+        "chapter_01.json"
+    ]
 }
