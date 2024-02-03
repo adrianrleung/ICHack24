@@ -1,11 +1,5 @@
-import Tree
+import json
 
-# class textBlock:
-#     def __init__(self, text):
-#         self.text = text
-
-# class Decision:
-#     def __init__(self, text)
 
 class Level:
     def __init__(self, filename):
