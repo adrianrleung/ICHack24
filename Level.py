@@ -1,12 +1,15 @@
 import json
 
+CHOICES = "choices"
+CORRECT = "correct"
+DESCRIPTION = "description"
 
 class Level:
     def __init__(self, filename):
         self.data = self.importJSON(filename)
-        self.choices = self.data["choices"]
-        self.correct = self.data["correct"]
-        self.description = self.data["description"]
+        self.choices = self.data[CHOICES]
+        self.correct = self.data[CORRECT]
+        self.description = self.data[DESCRIPTION]
 
     
     def launchLevel(self):
