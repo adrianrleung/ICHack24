@@ -26,9 +26,9 @@ class Level:
         while userChoice > len(self.choices) or userChoice < 0:
             userChoice = input("invalid. Try again")
         if userChoice == self.correct:
-            return lives
+            return True
         else:
-            return lives - 1
+            return False
         
     def importJSON(self, filename):
         with open(filename) as f:
