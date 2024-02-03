@@ -6,13 +6,14 @@ import Tree
 
 # class Decision:
 #     def __init__(self, text)
-
+import json
 class Level:
-    def __init__(self, data):
+    def __init__(self, filename):
+        data = self.importJSON(filename)
         self.data = data
-        self.choices = data[choices]
-        self.correct = data[correct]
-        self.description = data[description]
+        self.choices = data["choices"]
+        self.correct = data["correct"]
+        self.description = data["description"]
 
     
     def launchLevel(self):
@@ -27,4 +28,9 @@ class Level:
             return (True, lives)
         else:
             return (False, lives - 1)
+        
+    def importJSON(self, filename):
+        with open(filename) as f:
+            data = json.load(f)
+            return data
     
