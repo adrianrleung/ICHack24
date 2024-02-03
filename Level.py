@@ -17,19 +17,14 @@ class Level:
     
     def launchLevel(self):
         for line in self.description:
-            print("System " + text)
+            print("System: " + text)
         for choice in self.choices:
             print(choice)
         userChoice = input("enter your choice")
         while userChoice < len(self.choices):
             userChoice = input("invalid. Try again")
         if userChoice == self.correct:
-            self.right()
+            return (True, lives)
         else:
-            self.fail()
+            return (False, lives - 1)
     
-    def fail(self):
-        pass
-
-    def right(self):
-        pass
