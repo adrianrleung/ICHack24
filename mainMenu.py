@@ -17,6 +17,7 @@ class MainMenu:
 
 
 def main():
+    reset = 1
     mainMenu = MainMenu(MAX_LIVES)
 
     path = "./Chapters"
@@ -28,7 +29,7 @@ def main():
                 mainMenu.rest.append(Chapter(file))
 
 
-    while True:
+    while reset != 0:
         stop = False
         print("Lives: " + str(mainMenu.lives))
         print("Current unlocked Chapters: ")
@@ -47,10 +48,12 @@ def main():
                     if mainMenu.lives == 0:
                         break
                     if not level.launchLevel():
+                        print("Wrong answer! lives - 1")
                         mainMenu.lives -= 1
                 if mainMenu.lives != 0:
                     currentChapter.complete = True
             if mainMenu.lives == 0:
+                print("You ran out of lives!")
                 reset = input("reset chapter?: 0 (no) / 1 (yes)")
                 while not reset.isdigit() or int(reset) not in [0,1]:
                     userChoice = input("Invalid. Try again")
