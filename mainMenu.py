@@ -35,7 +35,7 @@ def main():
         for index,chapter in enumerate(mainMenu.unlocked):
             print(str(index+1)+".", chapter)
         userChoice = input("enter your choice of chapter: ")
-        while userChoice > len(mainMenu.unlocked) or userChoice < 1 or not userChoice.isdigit():
+        while not userChoice.isdigit() or int(userChoice) < 1 or int(userChoice) > len(mainMenu.unlocked):
             print("Invalid. Try again")
             userChoice = input("enter your choice of chapter: ")
         userChoice = int(userChoice) - 1
@@ -43,15 +43,18 @@ def main():
         currentChapter = mainMenu.unlocked[userChoice]
         while not stop:
             while mainMenu.lives != 0 and not currentChapter.complete:
-                for level in currentChapter.children:
+                for level in currentChapter.levels:
                     if mainMenu.lives == 0:
                         break
-                    level.launchLevel()
-                currentChapter.complete = True
+                    if not level.launchLevel():
+                        mainMenu.lives -= 1
+                if mainMenu.lives != 0:
+                    currentChapter.complete = True
             if mainMenu.lives == 0:
                 reset = input("reset chapter?: 0 (no) / 1 (yes)")
-                while not reset.isdigit() or reset not in [0,1]:
+                while not reset.isdigit() or int(reset) not in [0,1]:
                     userChoice = input("Invalid. Try again")
+                reset = int(reset)
                 if reset == 0:
                     stop = True
                 else:
