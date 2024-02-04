@@ -33,7 +33,8 @@ def main():
             print(str(index+1)+".", chapter)
         userChoice = input("enter your choice of chapter: ")
         while userChoice > len(mainMenu.unlocked) or userChoice < 1 or not userChoice.isdigit():
-            userChoice = print("Invalid. Try again")
+            print("Invalid. Try again")
+            userChoice = input("enter your choice of chapter: ")
         userChoice = int(userChoice) - 1
 
         currentChapter = mainMenu.unlocked[userChoice]
