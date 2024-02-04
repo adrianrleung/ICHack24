@@ -26,7 +26,7 @@ clock = pygame.time.Clock()
 
 class Button(pygame.sprite.Sprite):
     
-    def __init__(self,colour,text,position,size,font_name):
+    def __init__(self,colour,text,position,size):
 
         super().__init__()
         #define variables
@@ -35,7 +35,6 @@ class Button(pygame.sprite.Sprite):
         self.text = text
         self.position = position
         self.size = size
-        self.font_name = font_name
         #wider letters for hitbox
         if 'M' in self.text: 
             self.hitbox = pygame.Rect((position), ((len(self.text) * 75) + 50,self.size * 0.8666))

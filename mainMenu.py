@@ -62,9 +62,7 @@ class MainMenu:
             cmd = "SELECT * from CompletedChapters WHERE UserID = ?"
             data = [self.currID]
             cur.execute(cmd, data)
-            oldLenChapters = len(cur.fetchall())
-            diff = len(self.unlocked) - oldLenChapters
-            for i in range(oldLenChapters+1, len(self.unlocked)+1):
+            for i in range(len(cur.fetchall())+1, len(self.unlocked)+1):
                 cmd = '''INSERT INTO CompletedChapters(
                                         UserID, Chapter) VALUES 
                                         (?, ?)'''
@@ -85,9 +83,9 @@ class MainMenu:
             menu = pygame_menu.Menu("menu", 700, 300)
             menu.add.text_input('Username: ', default='', textinput_id="username")
             menu.add.text_input('Password: ', default='', password=True, textinput_id="password")
-            next_button = Button(WHITE, "Next", (1000,700),50,'gradius')
-            signup_button = Button(WHITE, "Make account", (100, 700), 50, " ")
-            text = Button(WHITE, "Login", (400, 100), 50, " ")
+            next_button = Button(WHITE, "Next", (1000,700),50)
+            signup_button = Button(WHITE, "Make account", (100, 700), 50)
+            text = Button(WHITE, "Login", (400, 100), 50)
             
             
             # -------- Main Program Loop -----------
@@ -176,9 +174,9 @@ class MainMenu:
             menu = pygame_menu.Menu("menu", 700, 300)
             menu.add.text_input('Username: ', default='', textinput_id="username")
             menu.add.text_input('Password: ', default='', password=True, textinput_id="password")
-            next_button = Button(WHITE, "Next", (1000,700),50,'gradius')
-            login_button = Button(WHITE, "Go to login", (100, 700), 50, " ")
-            text = Button(WHITE, "Sign Up", (400, 100), 50, " ")
+            next_button = Button(WHITE, "Next", (1000,700),50)
+            login_button = Button(WHITE, "Go to login", (100, 700), 50)
+            text = Button(WHITE, "Sign Up", (400, 100), 50)
             
             
             # -------- Main Program Loop -----------
@@ -258,7 +256,7 @@ class MainMenu:
                 unlockedStrs.append((str(c), c))
             menu = pygame_menu.Menu("menu", 700, 300)
             menu.add.selector(title = "Chapter", items = unlockedStrs, selector_id="Chapter", default = 0)
-            next_button = Button(WHITE, "Next", (1000,700),50,'gradius')
+            next_button = Button(WHITE, "Next", (1000,700),50)
             
             
             # -------- Main Program Loop -----------
@@ -332,9 +330,9 @@ class MainMenu:
             done = False
             
             
-            text = Button(WHITE, "Reset?", (500,200),50,'gradius')
-            yes = Button(WHITE, "YES", (100, 600), 50,  "")
-            no = Button(WHITE, "NO", (1000, 600), 50, "")
+            text = Button(WHITE, "Reset?", (500,200),50)
+            yes = Button(WHITE, "YES", (100, 600), 50)
+            no = Button(WHITE, "NO", (1000, 600), 50)
             
             # -------- Main Program Loop -----------
             while not done:
@@ -403,33 +401,3 @@ class MainMenu:
         self.unlocked = [Chapter.initChapter()]
         self.rest = []
         self.gameState = self.GameState(self.unlocked, lives)
-
-
-def main():
-    mainMenu = MainMenu(MAX_LIVES)
-    while mainMenu.gameState.playing:
-        mainMenu.gameState.state_manager()
-
-
-
-if __name__ == "__main__":
-    main()
-
-
-
-        
-
-
-
-    
-
-
-
-
-
-
-
-    
-
-
-

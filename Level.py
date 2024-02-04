@@ -41,15 +41,13 @@ class Level:
              # Loop until the user clicks the close button.
             done = False
             
-            next_button = Button(WHITE, 'Next',(1000,700),50,'gradius')
+            next_button = Button(WHITE, 'Next',(1000,700),50)
             descriptions = []
 
             if type(self.intro) == str:
                 self.intro = [self.intro]
             for text in self.intro:
-                descriptions.append(Button(WHITE, 
-                                    text,
-                                    (100,350),30,'gradius'))
+                descriptions.append(Button(WHITE, text, (100,350),30))
         
             
             # -------- Main Program Loop -----------
@@ -102,10 +100,10 @@ class Level:
             done = False
             
             
-            choice1 = Button(WHITE, "1. " + self.choices[0], (100,50),50,'gradius')
-            choice2 = Button(WHITE, "2. " + self.choices[1], (100,250),50,'gradius')
-            choice3 = Button(WHITE, "3. " + self.choices[2], (100,450),50,'gradius')
-            choice4 = Button(WHITE, "4. " + self.choices[3], (100,650),50,'gradius')
+            choice1 = Button(WHITE, "1. " + self.choices[0], (100,50),50)
+            choice2 = Button(WHITE, "2. " + self.choices[1], (100,250),50)
+            choice3 = Button(WHITE, "3. " + self.choices[2], (100,450),50)
+            choice4 = Button(WHITE, "4. " + self.choices[3], (100,650),50)
             
             
             # -------- Main Program Loop -----------
@@ -190,8 +188,8 @@ class Level:
             done = False
             
             
-            button = Button(WHITE, "Correct Answer!", (400,350),100,'gradius')
-            next_button = Button(WHITE, "Next Level", (1000,700),50,'gradius')
+            button = Button(WHITE, "Correct Answer!", (400,350),100)
+            next_button = Button(WHITE, "Next Level", (1000,700),50)
             
             
             # -------- Main Program Loop -----------
@@ -240,8 +238,8 @@ class Level:
             done = False
             
             
-            button = Button(WHITE, "Wrong Answer!", (100,100),100,'gradius')
-            next_button = Button(WHITE, "Next Level", (1000,700),50,'gradius')
+            button = Button(WHITE, "Wrong Answer!", (100,100),100)
+            next_button = Button(WHITE, "Next Level", (1000,700),50)
             
             
             # -------- Main Program Loop -----------
