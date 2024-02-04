@@ -1,0 +1,11 @@
+{
+    "levels" : 
+    [
+        "Chapters/chapter_1/Levels/level_01.json",
+        "Chapters/chapter_1/Levels/level_02.json"
+    ],
+    "children":
+    [
+        "Chapters/chapter_3/chapter_3.json"
+    ]
+}

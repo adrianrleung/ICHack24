@@ -6,6 +6,9 @@ import os, sys
 # Functions
 
 #keeps track of all nodes accessible
+
+MAX_LIVES = 3
+
 class MainMenu:
     def __init__(self, lives):
         self.lives = lives
@@ -14,7 +17,7 @@ class MainMenu:
 
 
 def main():
-    mainMenu = MainMenu(3)
+    mainMenu = MainMenu(MAX_LIVES)
 
     path = "./Chapters"
     chapters = os.listdir( path )
@@ -27,8 +30,8 @@ def main():
 
     while True:
         stop = False
-        print("Lives: " + mainMenu.lives)
-        print("Current unlocked chapters: " + mainMenu.unlocked)
+        print("Lives: " + str(mainMenu.lives))
+        print("Current unlocked Chapters: ")
         for index,chapter in enumerate(mainMenu.unlocked):
             print(str(index+1)+".", chapter)
         userChoice = input("enter your choice of chapter: ")
@@ -53,6 +56,7 @@ def main():
                     stop = True
                 else:
                     currentChapter.reset()
+                    mainMenu.lives = MAX_LIVES
             else:
                 for child in currentChapter.children:
                     mainMenu.unlocked.append(child)

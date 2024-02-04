@@ -1,12 +1,9 @@
 {
     "levels" : 
     [
-        "level_04.json",
-        "level_05.json",
-        "level_06.json"
+        "Chapters/chapter_1/Levels/level_03.json"
     ],
-    "dependencies": 
+    "children":
     [
-        "chapter_01.json"
     ]
 }
