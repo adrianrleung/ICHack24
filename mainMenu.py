@@ -3,6 +3,7 @@ import os, sys
 import pygame
 import pygame_menu
 from Button import Button
+import sqlite3
 # Main menu (tree of connected chapter)
 # Variables
 #   Hearts variable for lives remaining
@@ -27,16 +28,225 @@ screen = pygame.display.set_mode(size)
 
 clock = pygame.time.Clock()
 
+def nextIndex():
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+    cur.execute("Select UserID from Users")
+    UserIDs = cur.fetchall()
+    for i in range(len(UserIDs)):
+        UserIDs[i] = UserIDs[i][0]
+    count = 0
+    while count in UserIDs:
+        count += 1
+    return count
+
+Cs = ["Chapters/chapter_2/chapter_2.json",
+      "Chapters/chapter_3/chapter_3.json",
+      "Chapters/chapter_4/chapter_4.json",
+      "Chapters/chapter_5/chapter_5.json"]
+
 class MainMenu:
 
     class GameState:
 
         def __init__(self, unlocked, lives):
-            self.state = "selectChapter"
+            self.state = "login"
             self.unlocked = unlocked
             self.lives = lives
             self.playing = True
+            self.currID = None
         
+        def updateTable(self):
+            conn = sqlite3.connect('database.db')
+            cur = conn.cursor()
+            cmd = "SELECT * from CompletedChapters WHERE UserID = ?"
+            data = [self.currID]
+            cur.execute(cmd, data)
+            oldLenChapters = len(cur.fetchall())
+            diff = len(self.unlocked) - oldLenChapters
+            for i in range(oldLenChapters+1, len(self.unlocked)+1):
+                cmd = '''INSERT INTO CompletedChapters(
+                                        UserID, Chapter) VALUES 
+                                        (?, ?)'''
+                data = [self.currID, i]
+                cur.execute(cmd, data)
+            conn.commit()
+            conn.close()
+            
+        
+
+        def login(self):
+            pygame.display.set_caption('Level')
+
+             # Loop until the user clicks the close button.
+            done = False
+            
+        
+            menu = pygame_menu.Menu("menu", 700, 300)
+            menu.add.text_input('Username: ', default='', textinput_id="username")
+            menu.add.text_input('Password: ', default='', password=True, textinput_id="password")
+            next_button = Button(WHITE, "Next", (1000,700),50,'gradius')
+            signup_button = Button(WHITE, "Make account", (100, 700), 50, " ")
+            text = Button(WHITE, "Login", (400, 100), 50, " ")
+            
+            
+            # -------- Main Program Loop -----------
+            while not done:
+                # --- Main event loop
+                
+                #Get the mouse coordinates
+                events = pygame.event.get()
+                for event in events:
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    #Check for a mouse click and if the coordinates of the mouse are also over the play button, the screen is set to the main game
+                    if event.type == pygame.MOUSEBUTTONDOWN and next_button.colliding_with_mouse():
+                        items = menu.get_input_data()
+                        username = items["username"]
+                        password = items["password"]
+                        
+                        conn = sqlite3.connect('database.db')
+                        cur = conn.cursor()
+                        cmd = "SELECT UserID from USERS WHERE Username = ? AND Password = ?"
+                        data = [username, password]
+
+                        cur.execute(cmd, data)
+                        id = cur.fetchone()
+                        if id == None:
+                            print("invalid login")
+                        else:
+                            cmd = "SELECT * from CompletedChapters WHERE UserID = ?"
+                            self.currID = id[0]
+                            data = [self.currID]
+                            cur.execute(cmd, data)
+                            chaptersToLoad = 0
+                            d = cur.fetchall()
+                            if d != None:
+                                chaptersToLoad = len(d) - 1
+                            for i in range(chaptersToLoad):
+                                self.unlocked.append(Chapter(Cs[i]))
+                            self.state = "selectChapter"
+                            done = True
+                    elif event.type == pygame.MOUSEBUTTONDOWN and signup_button.colliding_with_mouse():
+                        self.state = "signup"
+                        done = True
+                        
+            
+                # --- Game logic should go here
+                
+                #Check if mouse is over campaign button
+                
+                #Check if mouse is over back button
+                if next_button.colliding_with_mouse():
+                    next_button.colour = GREY
+                else:
+                    next_button.colour = WHITE
+                if signup_button.colliding_with_mouse():
+                    signup_button.colour = GREY
+                else:
+                    signup_button.colour = WHITE
+                # --- Screen-clearing code goes here
+                screen.fill(BLACK)
+            
+                # --- Drawing code should go here
+                
+                #Blitting the text for the buttons on the screen
+                next_button.draw(screen)
+                signup_button.draw(screen)
+                text.draw(screen)
+                if menu.is_enabled():
+                    menu.update(events)
+                    menu.draw(screen)
+
+                
+                #Update display
+                pygame.display.flip()
+            
+                #Make the game run at 60 frames per second
+                clock.tick(60)
+
+        def signup(self):
+            pygame.display.set_caption('Level')
+
+             # Loop until the user clicks the close button.
+            done = False
+            
+        
+            menu = pygame_menu.Menu("menu", 700, 300)
+            menu.add.text_input('Username: ', default='', textinput_id="username")
+            menu.add.text_input('Password: ', default='', password=True, textinput_id="password")
+            next_button = Button(WHITE, "Next", (1000,700),50,'gradius')
+            login_button = Button(WHITE, "Go to login", (100, 700), 50, " ")
+            text = Button(WHITE, "Sign Up", (400, 100), 50, " ")
+            
+            
+            # -------- Main Program Loop -----------
+            while not done:
+                # --- Main event loop
+                
+                #Get the mouse coordinates
+                events = pygame.event.get()
+                for event in events:
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    #Check for a mouse click and if the coordinates of the mouse are also over the play button, the screen is set to the main game
+                    if event.type == pygame.MOUSEBUTTONDOWN and next_button.colliding_with_mouse():
+                        self.state = "login"
+                        items = menu.get_input_data()
+                        username = items["username"]
+                        password = items["password"]
+                        nextID = nextIndex()
+                        print(nextID)
+                        conn = sqlite3.connect('database.db')
+                        cur = conn.cursor()
+                        cmd = '''INSERT INTO USERS(
+                                        UserID, Username, Password) VALUES 
+                                        (?, ?, ?)'''
+                        data = [nextID, username, password]
+                        cur.execute(cmd, data)
+                        conn.commit()
+                        conn.close()
+                        done = True
+                    elif event.type == pygame.MOUSEBUTTONDOWN and login_button.colliding_with_mouse():
+                        self.state = "login"
+                        done = True
+                        
+            
+                # --- Game logic should go here
+                
+                #Check if mouse is over campaign button
+                
+                #Check if mouse is over back button
+                if next_button.colliding_with_mouse():
+                    next_button.colour = GREY
+                else:
+                    next_button.colour = WHITE
+                if login_button.colliding_with_mouse():
+                    login_button.colour = GREY
+                else:
+                    login_button.colour = WHITE
+                # --- Screen-clearing code goes here
+                screen.fill(BLACK)
+            
+                # --- Drawing code should go here
+                
+                #Blitting the text for the buttons on the screen
+                next_button.draw(screen)
+                login_button.draw(screen)
+                text.draw(screen)
+                if menu.is_enabled():
+                    menu.update(events)
+                    menu.draw(screen)
+
+                
+                #Update display
+                pygame.display.flip()
+            
+                #Make the game run at 60 frames per second
+                clock.tick(60)
+
         def selectChapter(self):
             pygame.display.set_caption('Level')
 
@@ -56,27 +266,24 @@ class MainMenu:
                 # --- Main event loop
                 
                 #Get the mouse coordinates
-                
-                for event in pygame.event.get():
+                events = pygame.event.get()
+                for event in events:
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         sys.exit()
                     #Check for a mouse click and if the coordinates of the mouse are also over the play button, the screen is set to the main game
                     if event.type == pygame.MOUSEBUTTONDOWN and next_button.colliding_with_mouse():
-                        print("click")
                         currentChapter = menu.get_input_data()["Chapter"][0][1]
                         while self.lives != 0 and not currentChapter.complete:
                             for level in currentChapter.levels:
-                                print(self.lives)
                                 if not level.launchLevel():
                                     self.lives -= 1
                                 if self.lives == 0:
                                     break
                             if self.lives != 0:
                                 currentChapter.complete = True
-                                print("current chapter complete")
+                                self.updateTable()
                         if self.lives <= 0:
-                            print("gameOver")
                             self.state = "gameOver"
                             for level in currentChapter.levels:
                                 level.gameState.playing = True
@@ -108,7 +315,7 @@ class MainMenu:
                 #Blitting the text for the buttons on the screen
                 next_button.draw(screen)
                 if menu.is_enabled():
-                    menu.update(pygame.event.get())
+                    menu.update(events)
                     menu.draw(screen)
 
                 
@@ -137,6 +344,7 @@ class MainMenu:
                 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
+                        self.updateTable()
                         pygame.quit()
                         sys.exit()
                     #Check for a mouse click and if the coordinates of the mouse are also over the play button, the screen is set to the main game
@@ -186,6 +394,10 @@ class MainMenu:
                 self.selectChapter()
             if self.state == "gameOver":
                 self.gameOver()
+            if self.state == "login":
+                self.login()
+            if self.state == "signup":
+                self.signup()
 
     def __init__(self, lives):
         self.unlocked = [Chapter.initChapter()]
@@ -194,56 +406,6 @@ class MainMenu:
 
 
 def main():
-    # reset = 1
-    # mainMenu = MainMenu(MAX_LIVES)
-
-    # path = "./Chapters"
-    # chapters = os.listdir( path )
-
-    # for chapter in chapters:
-    #     for file in chapter:
-    #         if os.path.isfile(file):
-    #             mainMenu.rest.append(Chapter(file))
-
-
-    # while reset != 0:
-    #     stop = False
-    #     print("Lives: " + str(mainMenu.lives))
-    #     print("Current unlocked Chapters: ")
-    #     for index,chapter in enumerate(mainMenu.unlocked):
-    #         print(str(index+1)+".", chapter)
-    #     userChoice = input("enter your choice of chapter: ")
-    #     while not userChoice.isdigit() or int(userChoice) < 1 or int(userChoice) > len(mainMenu.unlocked):
-    #         print("Invalid. Try again")
-    #         userChoice = input("enter your choice of chapter: ")
-    #     userChoice = int(userChoice) - 1
-
-    #     currentChapter = mainMenu.unlocked[userChoice]
-    #     while not stop:
-    #         while mainMenu.lives != 0 and not currentChapter.complete:
-    #             for level in currentChapter.levels:
-    #                 if mainMenu.lives == 0:
-    #                     break
-    #                 if not level.launchLevel():
-    #                     print("Wrong answer! lives - 1")
-    #                     mainMenu.lives -= 1
-    #             if mainMenu.lives != 0:
-    #                 currentChapter.complete = True
-    #         if mainMenu.lives == 0:
-    #             print("You ran out of lives!")
-    #             reset = input("reset chapter?: 0 (no) / 1 (yes)")
-    #             while not reset.isdigit() or int(reset) not in [0,1]:
-    #                 userChoice = input("Invalid. Try again")
-    #             reset = int(reset)
-    #             if reset == 0:
-    #                 stop = True
-    #             else:
-    #                 currentChapter.reset()
-    #                 mainMenu.lives = MAX_LIVES
-    #         else:
-    #             for child in currentChapter.children:
-    #                 mainMenu.unlocked.append(child)
-    #             stop = True
     mainMenu = MainMenu(MAX_LIVES)
     while mainMenu.gameState.playing:
         mainMenu.gameState.state_manager()

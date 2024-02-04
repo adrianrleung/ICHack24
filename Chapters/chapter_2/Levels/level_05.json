@@ -1,0 +1,11 @@
+{
+    "description": "You receive a message on social media from a friend asking for money urgently. What do you do?",
+    "name": "Social Media Money Request",
+    "choices": [
+    "You immediately send the money without questioning",
+    "You reply and ask for more details to verify the situation",
+    "You ignore the message",
+    "You post about it on your social media to warn others"
+    ],
+    "correct": 2
+    }

@@ -1,0 +1,11 @@
+{
+    "description": "You receive a message on social media offering a 'get rich quick' scheme that requires a small upfront investment. What do you do?",
+    "name": "Get Rich Quick Scheme",
+    "choices": [
+    "You invest the money immediately, hoping for quick returns",
+    "You report the message to the social media platform",
+    "You engage with the sender to learn more about the opportunity",
+    "You share the message with friends, asking for their opinions"
+    ],
+    "correct": 2
+    }

@@ -1,0 +1,11 @@
+{
+    "description": "You receive a call from an unknown number claiming to be a bank representative asking for your personal information. What do you do?",
+    "name": "Phone Call Scam",
+    "choices": [
+    "You provide the requested information",
+    "You hang up immediately",
+    "You call the bank using a verified number to confirm the legitimacy of the call",
+    "You share the caller's information on social media"
+    ],
+    "correct": 2
+    }

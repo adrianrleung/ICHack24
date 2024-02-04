@@ -1,0 +1,11 @@
+{
+    "description": "You receive a text message with a link claiming you've won a prize. What do you do?",
+    "name": "Text Message Prize Scam",
+    "choices": [
+    "You click on the link to claim your prize",
+    "You delete the message without opening",
+    "You reply and provide personal information to claim the prize",
+    "You report the message to your mobile carrier"
+    ],
+    "correct": 3
+    }

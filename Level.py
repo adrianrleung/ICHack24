@@ -96,7 +96,7 @@ class Level:
                 clock.tick(60)
 
         def choice(self):
-            pygame.display.set_caption('Level')
+            pygame.display.set_caption('choice')
 
              # Loop until the user clicks the close button.
             done = False
@@ -184,7 +184,7 @@ class Level:
                 clock.tick(60)
 
         def correctAns(self):
-            pygame.display.set_caption('Level')
+            pygame.display.set_caption('right')
 
              # Loop until the user clicks the close button.
             done = False
@@ -234,7 +234,7 @@ class Level:
                 clock.tick(60)
             
         def wrong(self):
-            pygame.display.set_caption('Level')
+            pygame.display.set_caption('wrong')
 
              # Loop until the user clicks the close button.
             done = False
@@ -305,15 +305,6 @@ class Level:
 
     
     def launchLevel(self):
-        # print("System: " + self.description)
-        # print("Your choices: ")
-        # for index,choice in enumerate(self.choices):
-        #     print(str(index+1)+".",choice)
-        # userChoice = input("enter your choice: ")
-        # while not userChoice.isdigit() or int(userChoice) > len(self.choices) or int(userChoice) < 1:
-        #     userChoice = print("Invalid. Try again")
-        # userChoice = int(userChoice)-1 # Changes from 1 indexing to 0 indexing
-        # return userChoice == self.correct
         self.gameState = self.GameState(self.description, self.correct, self.choices)
         while self.gameState.playing:
             self.gameState.state_manager()
@@ -324,7 +315,4 @@ class Level:
             data = json.load(f)
             return data
 
-# if __name__ == "__main__":
-#     myLevel = Level("Chapters/chapter_1/Levels/level_01.json")
-#     myLevel.launchLevel()
     

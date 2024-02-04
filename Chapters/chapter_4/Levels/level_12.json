@@ -1,0 +1,11 @@
+{
+    "description": "You get a message on a job-seeking website offering you a remote job with a high salary without an interview. What do you do?",
+    "name": "Remote Job Offer",
+    "choices": [
+    "You provide your personal and banking information to secure the job",
+    "You accept the offer without any further investigation",
+    "You research the company independently and verify the legitimacy of the offer",
+    "You share the job offer on social media to see if others have received it"
+    ],
+    "correct": 2
+    }

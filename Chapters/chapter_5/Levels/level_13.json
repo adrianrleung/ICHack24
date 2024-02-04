@@ -1,0 +1,11 @@
+{
+    "description": "You receive a phone call claiming to be from a government agency, stating you owe back taxes and need to pay immediately. What do you do?",
+    "name": "Tax Scam Call",
+    "choices": [
+    "You panic and make an immediate payment",
+    "You hang up and call the official tax agency to verify the claim",
+    "You engage in a conversation to gather more information about the caller",
+    "You post about the call on social media to warn others"
+    ],
+    "correct": 1
+    }

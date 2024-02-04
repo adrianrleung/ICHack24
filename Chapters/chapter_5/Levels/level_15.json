@@ -1,0 +1,11 @@
+{
+    "description": "You receive an unsolicited email claiming you've won a lottery you never entered, and they need your bank details to transfer the prize. What do you do?",
+    "name": "Lottery Scam Email",
+    "choices": [
+    "Excitedly provide your bank details to claim the prize",
+    "Delete the email without opening",
+    "Research the lottery organization independently to verify the authenticity",
+    "Forward the email to your contacts, encouraging them to enter the lottery as well"
+    ],
+    "correct": 2
+    }

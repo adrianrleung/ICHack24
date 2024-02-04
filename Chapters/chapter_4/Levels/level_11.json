@@ -1,0 +1,12 @@
+
+{
+    "description": "You receive an email from your bank stating that your account has been compromised and requires immediate action. What do you do?",
+    "name": "Bank Account Compromise",
+    "choices": [
+    "You click on the provided link and enter your login credentials",
+    "You call your bank using the official number to verify the email's legitimacy",
+    "You ignore the email assuming it's a mistake",
+    "You forward the email to your colleagues for advice"
+    ],
+    "correct": 1
+    }

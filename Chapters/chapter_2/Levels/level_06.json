@@ -1,0 +1,11 @@
+{
+    "description": "You receive a pop-up on your computer claiming that your system is infected with a virus. What do you do?",
+    "name": "Fake Antivirus Pop-up",
+    "choices": [
+    "You click on the pop-up and follow the instructions to clean your system",
+    "You close the pop-up and run a reputable antivirus scan",
+    "You ignore the pop-up",
+    "You share the pop-up screenshot on social media for advice"
+    ],
+    "correct": 1
+    }
