@@ -2,9 +2,10 @@ import json
 
 from Level import Level
 
-CHAPTER_1 = "chapter_1.json"
+CHAPTER_1 = "Chapters/Start/Start.json"
 LEVELS = "levels"
 DEPENDENCIES = "dependencies"
+CHILDREN = "children"
 
 class Chapter:
     def __init__(self, filename):
@@ -13,14 +14,20 @@ class Chapter:
         self.index = 0
         self.complete = False
         self.levels = []
+        self.dependencies = []
         self.children = []
 
         for level_json in dict[LEVELS]:
-            self.levels.append(Level(level_json))
+            self.levels.append(Level("Levels/" + level_json))
 
         for chapter_json in dict[DEPENDENCIES]:
             chapter = Chapter(chapter_json)
+            self.dependencies.append(chapter)
+        
+        for chapter_json in dict[CHILDREN]:
+            chapter = Chapter(chapter_json)
             self.children.append(chapter)
+
 
     def reset(self):
         self.index = 0

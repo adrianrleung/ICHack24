@@ -23,11 +23,10 @@ def main():
         for file in chapter:
             if os.path.isfile(file):
                 mainMenu.rest.append(Chapter(file))
-    
-    stop = False
 
 
     while True:
+        stop = False
         print("Lives: " + mainMenu.lives)
         print("Current unlocked chapters: " + mainMenu.unlocked)
         for index,chapter in enumerate(mainMenu.unlocked):
@@ -41,15 +40,23 @@ def main():
         while not stop:
             while mainMenu.lives != 0 and not currentChapter.complete:
                 for level in currentChapter.children:
+                    if mainMenu.lives == 0:
+                        break
                     level.launchLevel()
+                currentChapter.complete = True
             if mainMenu.lives == 0:
-                reset = input("reset chapter?: 0/1")
+                reset = input("reset chapter?: 0 (no) / 1 (yes)")
                 while not reset.isdigit() or reset not in [0,1]:
-                    userChoice = print("Invalid. Try again")
+                    userChoice = input("Invalid. Try again")
                 if reset == 0:
                     stop = True
                 else:
                     currentChapter.reset()
+            else:
+                for child in currentChapter.children:
+                    mainMenu.unlocked.append(child)
+                stop = True
+
 
 
 if __name__ == "__main__":
