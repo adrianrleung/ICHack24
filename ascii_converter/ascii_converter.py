@@ -6,9 +6,7 @@ from pick import pick
 from pprint import pprint
 import inquirer
 import text_converter
-
-
-vid = cv2.VideoCapture("./out.mp4")
+import pyfiglet
 
 class starter() :
     def __init__(self) -> None:
@@ -73,10 +71,6 @@ class ascii_renderer():
                 if not ret:
                     print("Can't receive frame (stream end?). Exiting ...")
                     break
-                # Our operations on the frame come here
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                # Display the resulting frame
-                # self.clean()
                 print(my_art.to_terminal(columns=80))
                 # cv2.imshow('frame', gray)
                 if cv2.waitKey(1) == ord('q'):
@@ -101,9 +95,15 @@ def clean():
 
 
 def main():
-    start = starter()
-    selection = start.render()
-    clean()
-    my_renderer = ascii_renderer(mode = selection)
-    my_renderer.push()
+    flag = "Y"
+    while flag == "Y":
+        clean()
+        start = starter()
+        selection = start.render()
+        clean()
+        my_renderer = ascii_renderer(mode = selection)
+        my_renderer.push()
+        flag = input("Do you want to make another ASCII art? [Y/n]")
+    print(pyfiglet.figlet_format("GoodBye", font="weird"))
+
 main()
